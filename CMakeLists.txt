@@ -19,17 +19,17 @@ target_include_directories(${PROJECT_NAME}
 
 if(WIN32)
     target_compile_definitions(${PROJECT_NAME}
-        PRIVATE
+        PUBLIC
             __TARGET_WIN__=1
     )
 elseif(APPLE)
     target_compile_definitions(${PROJECT_NAME}
-        PRIVATE
+        PUBLIC
             __TARGET_MAC__=1
     )
 elseif(UNIX)
     target_compile_definitions(${PROJECT_NAME}
-        PRIVATE
+        PUBLIC
             __TARGET_LINUX__=1
     )
 else()
