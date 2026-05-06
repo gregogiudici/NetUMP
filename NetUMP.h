@@ -28,7 +28,8 @@
 #ifndef __NETUMP_H__
 #define __NETUMP_H__
 
-#include "network.h"
+#include "Network.h"
+#include <cstring>
 #ifdef __TARGET_WIN__
 #include <stdint.h>
 #endif
