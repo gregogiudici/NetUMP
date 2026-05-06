@@ -587,7 +587,7 @@ bool CNetUMPHandler::RemotePeerClosedSession (void)
 }  // CNetUMPHandler::RemotePeerClosedSession
 //--------------------------------------------------------------------------
 
-bool CNetUMPHandler::SendUMPMessage (uint32_t* UMPData)
+bool CNetUMPHandler::SendUMPMessage (const uint32_t* UMPData)
 {
 	unsigned int TmpWrite;
 	unsigned int WordCounter;

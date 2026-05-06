@@ -242,7 +242,7 @@ public:
 	bool RemotePeerClosedSession (void);
 
 	//! Put a next message to be sent in the transmission queue
-	bool SendUMPMessage (uint32_t* UMPData);
+	bool SendUMPMessage (const uint32_t* UMPData);
 
 	//! Select error correction method on transmit - 0 : no error correction (no FEC) / 1 : Forward Error Correction (add older packets before latest UMP data)
 	void SelectErrorCorrectionMode (unsigned int CorrectionMethod);
