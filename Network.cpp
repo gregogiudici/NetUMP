@@ -430,3 +430,52 @@ void CloseSocket (TSOCKTYPE* sock)
   }
 }  // CloseSocket
 // ----------------------------------------------------------------------------------
+
+
+bool ResolveHostNameIPv4Ex (const char* HostName, unsigned short Port, unsigned long* OutIPAddr)
+{
+    struct addrinfo hints;
+    struct addrinfo* result = NULL;
+    struct addrinfo* ptr = NULL;
+    char portString[16];
+
+    if ((HostName == NULL) || (OutIPAddr == NULL))
+        return false;
+
+    *OutIPAddr = 0;
+
+    memset(&hints, 0, sizeof(hints));
+    hints.ai_family = AF_INET;
+    hints.ai_socktype = SOCK_DGRAM;
+    hints.ai_protocol = IPPROTO_UDP;
+    hints.ai_flags = AI_NUMERICSERV;
+
+#if defined (__TARGET_WIN__)
+    _snprintf(portString, sizeof(portString), "%u", (unsigned int) Port);
+#else
+    snprintf(portString, sizeof(portString), "%u", (unsigned int) Port);
+#endif
+    portString[sizeof(portString) - 1] = 0;
+
+    if (getaddrinfo(HostName, portString, &hints, &result) != 0)
+        return false;
+
+    for (ptr = result; ptr != NULL; ptr = ptr->ai_next)
+    {
+        if ((ptr->ai_family == AF_INET) && (ptr->ai_addr != NULL))
+        {
+            struct sockaddr_in* ipv4 = (struct sockaddr_in*) ptr->ai_addr;
+            *OutIPAddr = ntohl(ipv4->sin_addr.s_addr);
+            freeaddrinfo(result);
+            return true;
+        }
+    }
+
+    freeaddrinfo(result);
+    return false;
+}
+
+bool ResolveHostNameIPv4 (const char* HostName, unsigned long* OutIPAddr)
+{
+    return ResolveHostNameIPv4Ex(HostName, 0, OutIPAddr);
+}
