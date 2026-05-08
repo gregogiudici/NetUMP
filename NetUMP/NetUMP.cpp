@@ -560,10 +560,17 @@ void CNetUMPHandler::RestartSessionInitiator (void)
 
 int CNetUMPHandler::GetSessionStatus (void)
 {
-	if (SessionState==SESSION_CLOSED) return 0;
-	if (SessionState==SESSION_OPENED) return 3;
-	if (SessionState==SESSION_INVITE) return 1;
-	return 2;
+	// if (SessionState==SESSION_CLOSED) return 0;
+	// if (SessionState==SESSION_OPENED) return 3;
+	// if (SessionState==SESSION_INVITE) return 1;
+	// return 2;
+
+	// SESSION_CLOSED			0	// No action
+	// SESSION_CLOSE			1	// Session should close in emergency
+	// SESSION_INVITE			2	// Sending invitation to remote partner
+	// SESSION_WAIT_INVITE		4	// Wait to be invited by remote station
+	// SESSION_OPENED			8	// Session is opened, just generate background traffic now
+	return SessionState;
 }  // CNetUMPHandler::::GetSessionStatus
 //--------------------------------------------------------------------------
 
