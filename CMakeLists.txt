@@ -4,12 +4,12 @@ project(NetUMP LANGUAGES C CXX)
 
 add_library(${PROJECT_NAME} STATIC
     # from bbouchez/BEBSDK
-    Network.cpp
-    SystemSleep.cpp
-    # Core netump library
-    NetUMP.cpp
-    NetUMP_SessionProtocol.cpp
-    UMP_Transcoder.c
+    NetUMP/Network.cpp
+    NetUMP/SystemSleep.cpp
+    # Core NetUMP library
+    NetUMP/NetUMP.cpp
+    NetUMP/NetUMP_SessionProtocol.cpp
+    NetUMP/UMP_Transcoder.c
 )
 
 target_include_directories(${PROJECT_NAME}
